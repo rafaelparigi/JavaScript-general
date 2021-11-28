@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+
+                <h3>Question: what is the largest country on Earth by surface area?</h3>
+                <div id="country-buttons"></div>
+                <p id="message"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+
+                <!-- TODO: Add free response question here -->
+                <h3>Question: which country on Earth has the absolute highest population?</h3>
+                <form onsubmit="hasLargestPopulation(event)">
+                    <input id="populous-country-answer" type="text">
+                    <button type="submit">Submit</button>
+                </form>
+                <div id="message1"></div>
+            </div>
+
+        </div>
+        <script>
+            const isCorrectAnswer = (country) => {
+                const isCorrectCountry = country === 'Russia';
+                const message = document.getElementById('message');
+                message.innerHTML = isCorrectCountry ? 'Correct' : 'Incorrect';
+                // const color = isCorrectCountry ? 'Green' : 'Red';
+                const countryButton = document.getElementById(`button-${country}`);
+                // countryButton.style.backgroundColor = color;
+                countryButton.classList.add(
+                    isCorrectCountry ? "correct-answer" : "incorrect-answer"
+                );
+            };
+
+            const hasLargestPopulation = (event) => {
+                event.preventDefault();
+                const textFieldInForm = document.querySelector('#populous-country-answer');
+                const isCorrectAnswer = textFieldInForm.value === 'China';
+                textFieldInForm.style.backgroundColor = isCorrectAnswer ? "green" : "red";
+                const message1 = document.querySelector('#message1');
+                message1.innerHTML = isCorrectAnswer ? 'Correct' : 'Incorrect';
+            }
+
+            const countries = ["USA", "Canada", "China", "Russia", "India"];
+            const multipleChoices = countries.map(country => `<button id="button-${country}" onClick="isCorrectAnswer('${country}')">${country}</button>`).join('');
+            document.getElementById("country-buttons").innerHTML = multipleChoices;
+        </script>
+    </body>
+</html>
